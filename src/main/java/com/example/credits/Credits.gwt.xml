@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='credits'>
+    <inherits name='com.google.gwt.user.User'/>
+
+    <inherits name='com.google.gwt.user.theme.clean.Clean'/>
+    <inherits name="org.spiffyui.spiffyui"/>
+
+    <entry-point class='com.example.credits.client.Credits'/>
+
+    <source path='client'/>
+    <source path='shared'/>
+
+</module>
