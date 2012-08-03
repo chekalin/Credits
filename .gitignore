@@ -1,0 +1,5 @@
+war/**/*
+out/**/*
+gwt-unitCache/**/*
+webapp/WEB-INF/lib/*
+
