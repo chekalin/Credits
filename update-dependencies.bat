@@ -1,1 +1,1 @@
-mvn dependency:copy-dependencies -Dclassifer=sources -DoutputDirectory=war\WEB-INF\lib 
+mvn dependency:copy-dependencies -Dclassifer=sources -DoutputDirectory=webapp\WEB-INF\lib

@@ -2,4 +2,4 @@ war/**/*
 out/**/*
 gwt-unitCache/**/*
 webapp/WEB-INF/lib/*
-
+!webapp/WEB-INF/lib/spring4gwt-0.0.1.jar

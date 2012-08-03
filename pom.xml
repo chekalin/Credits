@@ -16,6 +16,24 @@
 	</properties>
 
 	<dependencies>
+        <!-- GWT -->
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwtVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+            <version>${gwtVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-servlet</artifactId>
+            <version>${gwtVersion}</version>
+        </dependency>
+
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -53,14 +71,7 @@
 			<version>${springVersion}</version>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- Spring - GWT integration helper -->
-		<dependency>
-			<groupId>com.google.code</groupId>
-			<artifactId>spring4gwt</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-		
+
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -102,13 +113,14 @@
 			<version>1.8.0.10</version>
 		</dependency>
 
+        <!-- MISC -->
         <dependency>
             <groupId>org.spiffyui</groupId>
             <artifactId>spiffyui</artifactId>
             <version>1.1</version>
         </dependency>
 
-		<!-- MISC -->
+		<!-- TESTING -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
