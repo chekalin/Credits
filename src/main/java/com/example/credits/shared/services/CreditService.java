@@ -9,9 +9,5 @@ import java.util.List;
 @RemoteServiceRelativePath("springGwtServices/creditService")
 public interface CreditService extends RemoteService {
 	
-	public Credit calculate(int days, int amount);
-
-	public void save(Credit credit);
-
 	public List<Credit> findAllCredits();
 }

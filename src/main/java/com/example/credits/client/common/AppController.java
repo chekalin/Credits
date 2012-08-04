@@ -8,6 +8,7 @@ import com.example.credits.client.credits.CreditsPresenter;
 import com.example.credits.client.credits.CreditsView;
 import com.example.credits.client.credits.ShowCreditsEvent;
 import com.example.credits.client.credits.ShowCreditsEventHandler;
+import com.example.credits.shared.services.CalculatorServiceAsync;
 import com.example.credits.shared.services.CreditServiceAsync;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
@@ -20,11 +21,13 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
     public static final String NAVIGATION_LIST = "list";
     public static final String NAVIGATION_CALCULATOR = "calculator";
     private CreditServiceAsync creditService;
+    private CalculatorServiceAsync calculatorService;
     private HandlerManager eventBus;
     private HasWidgets container;
 
-    public AppController(CreditServiceAsync creditService, HandlerManager eventBus) {
+    public AppController(CalculatorServiceAsync calculatorService, CreditServiceAsync creditService, HandlerManager eventBus) {
         this.creditService = creditService;
+        this.calculatorService = calculatorService;
         this.eventBus = eventBus;
         bind();
     }
@@ -48,7 +51,7 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         if (token != null) {
             Presenter presenter = null;
             if (token.equals(NAVIGATION_CALCULATOR)) {
-                presenter = new CalculatorPresenter(creditService, eventBus, new CalculatorView());
+                presenter = new CalculatorPresenter(calculatorService, eventBus, new CalculatorView());
             } else if (token.equals(NAVIGATION_LIST)) {
                 presenter = new CreditsPresenter(creditService, eventBus, new CreditsView());
             }
@@ -66,5 +69,4 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
             History.fireCurrentHistoryState();
         }
     }
-
 }

@@ -3,29 +3,23 @@ package com.example.credits.client.calculator;
 import com.example.credits.client.common.AsyncCallbackWithFailureHandling;
 import com.example.credits.client.common.Presenter;
 import com.example.credits.client.credits.ShowCreditsEvent;
-import com.example.credits.shared.domain.Credit;
-import com.example.credits.shared.services.CalculatorService;
 import com.example.credits.shared.services.CalculatorServiceAsync;
-import com.example.credits.shared.services.CreditServiceAsync;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.i18n.client.NumberFormat;
 import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.HasValue;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 
-public class CalculatorPresenter implements Presenter, ClickHandler, ValueChangeHandler<Integer> {
+public class CalculatorPresenter implements Presenter, ClickHandler, ValueChangeHandler {
+
+    public static final int MAX_AMOUNT_FOR_FIRST = 200;
 
     public interface Display {
-        HasClickHandlers getSubmitButton();
+        Button getSubmitButton();
         HasValue<Integer> getDays();
         HasValue<Integer> getAmount();
         HasValue<Boolean> getFirst();
@@ -39,18 +33,15 @@ public class CalculatorPresenter implements Presenter, ClickHandler, ValueChange
         HasText getProlongation30Label();
     }
 
-    private CreditServiceAsync creditService;
-    private CalculatorServiceAsync calculatorService = GWT.create(CalculatorService.class);
+    private CalculatorServiceAsync calculatorService;
     private HandlerManager eventBus;
     private Display view;
-    private CalculateTimer calculateTimer;
+    private CalculateTimer calculateTimer = new CalculateTimer();
 
-    public CalculatorPresenter(CreditServiceAsync creditService,
-                               HandlerManager eventBus, Display view) {
-        this.creditService = creditService;
+    public CalculatorPresenter(CalculatorServiceAsync calculatorService, HandlerManager eventBus, Display view) {
+        this.calculatorService = calculatorService;
         this.eventBus = eventBus;
         this.view = view;
-        calculateTimer = new CalculateTimer(calculatorService, view);
     }
 
     public void go(HasWidgets container) {
@@ -65,31 +56,57 @@ public class CalculatorPresenter implements Presenter, ClickHandler, ValueChange
         });
     }
 
+    @SuppressWarnings("unchecked")
     private void bind() {
         view.getSubmitButton().addClickHandler(this);
         view.getAmount().addValueChangeHandler(this);
         view.getDays().addValueChangeHandler(this);
+        view.getFirst().addValueChangeHandler(this);
     }
 
     public void onClick(ClickEvent event) {
         if (view.getSubmitButton().equals(event.getSource())) {
+            view.getSubmitButton().setEnabled(false);
             Integer amount = view.getAmount().getValue();
             Integer days = view.getDays().getValue();
-            Credit credit = new Credit();
-            credit.setAmount(amount);
-            credit.setNumberOfDays(days);
-            calculateTimer.cancel();
-            creditService.save(credit, new AsyncCallbackWithFailureHandling<Void>() {
+            Boolean isFirst = view.getFirst().getValue();
+            calculatorService.submit(days, amount, isFirst, new AsyncCallbackWithFailureHandling<Void>() {
                 public void onSuccess(Void result) {
                     eventBus.fireEvent(new ShowCreditsEvent());
+                }
+
+                @Override
+                public void onFailure(Throwable caught) {
+                    super.onFailure(caught);
+                    view.getSubmitButton().setEnabled(true);
                 }
             });
         }
     }
 
-    public void onValueChange(ValueChangeEvent<Integer> integerValueChangeEvent) {
-        calculateTimer.cancel();
-        calculateTimer.schedule(500);
+    public void onValueChange(ValueChangeEvent event) {
+        if (event.getSource().equals(view.getFirst())
+                && Boolean.TRUE.equals(view.getFirst().getValue())
+                && view.getAmount().getValue() > MAX_AMOUNT_FOR_FIRST) {
+            view.getAmount().setValue(MAX_AMOUNT_FOR_FIRST);
+        } else if (event.getSource().equals(view.getAmount()) && view.getAmount().getValue() > 200 && view.getFirst().getValue()) {
+            view.getFirst().setValue(Boolean.FALSE);
+        } else {
+            calculateTimer.cancel();
+            calculateTimer.schedule(500);
+        }
+    }
+
+    private void calculate() {
+        Integer amount = view.getAmount().getValue();
+        Integer numberOfDays = view.getDays().getValue();
+        Boolean first = view.getFirst().getValue();
+        calculatorService.calculate(numberOfDays, amount, first, new AsyncCallbackWithFailureHandling<CalculatorModel>() {
+            @Override
+            public void onSuccess(CalculatorModel result) {
+                updateView(result);
+            }
+        });
     }
 
     private void updateView(CalculatorModel model) {
@@ -107,27 +124,10 @@ public class CalculatorPresenter implements Presenter, ClickHandler, ValueChange
         view.getProlongation14Label().setText(currencyFormat.format(model.getProlongation14()));
         view.getProlongation30Label().setText(currencyFormat.format(model.getProlongation30()));
     }
-
     private class CalculateTimer extends Timer {
-        private CalculatorServiceAsync calculatorService;
-        private Display view;
-
-        private CalculateTimer(CalculatorServiceAsync calculatorService, Display view) {
-            this.calculatorService = calculatorService;
-            this.view = view;
-        }
-
         @Override
         public void run() {
-            Boolean isFirst = view.getFirst().getValue();
-            Integer numberOfDays = view.getDays().getValue();
-            Integer amount = view.getAmount().getValue();
-            calculatorService.calculate(numberOfDays, amount, isFirst, new AsyncCallbackWithFailureHandling<CalculatorModel>() {
-                @Override
-                public void onSuccess(CalculatorModel result) {
-                    updateView(result);
-                }
-            });
+            calculate();
         }
     }
 

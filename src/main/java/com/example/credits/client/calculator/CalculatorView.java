@@ -1,7 +1,6 @@
 package com.example.credits.client.calculator;
 
 import com.example.credits.client.calculator.slider.SliderWidget;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.*;
 
 public class CalculatorView extends Composite implements CalculatorPresenter.Display {
@@ -26,7 +25,7 @@ public class CalculatorView extends Composite implements CalculatorPresenter.Dis
         creditInfo.add(creditInfoTable());
         panel.add(isFirstTime);
         panel.add(creditInfo);
-	}
+    }
 
     private VerticalPanel sliders() {
         VerticalPanel sliders = new VerticalPanel();
@@ -58,7 +57,7 @@ public class CalculatorView extends Composite implements CalculatorPresenter.Dis
         return creditInfo;
     }
 
-    public HasClickHandlers getSubmitButton() {
+    public Button getSubmitButton() {
 		return submitButton;
 	}
 

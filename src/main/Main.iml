@@ -49,6 +49,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../test/integration" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../test/unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/resource" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../test/utils" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../gwt-unitCache" />
       <excludeFolder url="file://$MODULE_DIR$/../../war" />
     </content>

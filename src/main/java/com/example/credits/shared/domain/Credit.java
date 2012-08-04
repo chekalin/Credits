@@ -1,19 +1,11 @@
 package com.example.credits.shared.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
+@SuppressWarnings("JpaDataSourceORMInspection")
 @Entity
 @Table(name = "CREDIT")
 public class Credit implements Serializable {
@@ -33,22 +25,16 @@ public class Credit implements Serializable {
 	private int amount;
 
 	@Column(name = "COMISSION")
-	private BigDecimal comission;
+	private BigDecimal commission;
 
-	@Column(name = "EXTENSION_7")
-	private BigDecimal extension7;
-	
-	@Column(name = "EXTENSION_14")
-	private BigDecimal extension14;
-	
-	@Column(name = "EXTENSION_30")
-	private BigDecimal extension30;
-	
+    @Column(name = "FIRST")
+    private boolean first;
+
 	@Column(name = "CREATED", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable=false, updatable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date created;
-	
-	public Long getCreditId() {
+
+    public Long getCreditId() {
 		return creditId;
 	}
 
@@ -72,44 +58,16 @@ public class Credit implements Serializable {
 		this.amount = amount;
 	}
 
-	public BigDecimal getComission() {
-		return comission;
+	public BigDecimal getCommission() {
+		return commission;
 	}
 
-	public void setComission(BigDecimal comission) {
-		this.comission = comission;
+	public void setCommission(BigDecimal comission) {
+		this.commission = comission;
 	}
 
 	public BigDecimal getTotal() {
-		return comission.add(new BigDecimal(amount));
-	}
-
-	public BigDecimal getExtension7() {
-		return extension7;
-	}
-
-	public void setExtension7(BigDecimal extension7) {
-		this.extension7 = extension7;
-	}
-
-	public BigDecimal getExtension14() {
-		return extension14;
-	}
-
-	public void setExtension14(BigDecimal extension14) {
-		this.extension14 = extension14;
-	}
-
-	public BigDecimal getExtension30() {
-		return extension30;
-	}
-
-	public void setExtension30(BigDecimal extension30) {
-		this.extension30 = extension30;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+		return commission.add(new BigDecimal(amount));
 	}
 
 	public Date getCreated() {
@@ -120,17 +78,40 @@ public class Credit implements Serializable {
 		this.created = created;
 	}
 
+    public void setFirst(boolean first) {
+        this.first = first;
+    }
+
+    public boolean isFirst() {
+        return first;
+    }
+
     @Override
     public String toString() {
         return "Credit{" +
                 "creditId=" + creditId +
                 ", numberOfDays=" + numberOfDays +
                 ", amount=" + amount +
-                ", comission=" + comission +
-                ", extension7=" + extension7 +
-                ", extension14=" + extension14 +
-                ", extension30=" + extension30 +
+                ", comission=" + commission +
+                ", first=" + first +
                 ", created=" + created +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Credit credit = (Credit) o;
+
+        if (creditId != null ? !creditId.equals(credit.creditId) : credit.creditId != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return creditId != null ? creditId.hashCode() : 0;
     }
 }

@@ -13,8 +13,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class Credits implements EntryPoint {
 	public void onModuleLoad() {
 		CreditServiceAsync creditService = GWT.create(CreditService.class);
+		CalculatorServiceAsync calculatorService = GWT.create(CalculatorService.class);
 	    HandlerManager eventBus = new HandlerManager(null);
-	    AppController appViewer = new AppController(creditService, eventBus);
+	    AppController appViewer = new AppController(calculatorService, creditService, eventBus);
 	    appViewer.go(RootPanel.get("mainContent"));
 	}
 }

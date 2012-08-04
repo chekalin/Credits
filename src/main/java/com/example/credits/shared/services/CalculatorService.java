@@ -6,6 +6,10 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("springGwtServices/calculatorService")
 public interface CalculatorService extends RemoteService {
+
     CalculatorModel load();
+
     CalculatorModel calculate(int days, int amount, boolean isFirst);
+
+    void submit(int numberOfDays, int amount, boolean isFirst);
 }

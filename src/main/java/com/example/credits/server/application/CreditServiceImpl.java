@@ -15,27 +15,8 @@ import java.util.List;
 public class CreditServiceImpl implements CreditService {
 	
 	@Autowired private CreditRepository creditRepository;
-	
-	public Credit calculate(Credit credit) {
-		return credit;
-	}
 
-    public Credit calculate(int days, int amount) {
-        Credit credit = new Credit();
-        credit.setNumberOfDays(days);
-        credit.setAmount(amount);
-        credit.setComission(new BigDecimal(3.14));
-        return credit;
-    }
-
-    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-	public void save(Credit credit) {
-		creditRepository.persist(credit);
-	}
-
-	public List<Credit> findAllCredits() {
+    public List<Credit> findAllCredits() {
 		return creditRepository.findAll();
 	}
-	
-
 }

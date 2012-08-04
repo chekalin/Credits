@@ -9,8 +9,6 @@ public class IsFirstTimeWidget extends Composite implements IsWidget, HasValue<B
 
     private final ToggleButton first = new ToggleButton("Pirmais kredīts");
     private final ToggleButton recurrent = new ToggleButton("Atkārtots kredīts");
-    private Boolean value = Boolean.TRUE;
-
     public IsFirstTimeWidget() {
         HorizontalPanel panel = new HorizontalPanel();
         initWidget(panel);
@@ -19,20 +17,22 @@ public class IsFirstTimeWidget extends Composite implements IsWidget, HasValue<B
         first.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
             public void onValueChange(ValueChangeEvent<Boolean> event) {
-                Boolean newValue = event.getValue();
-                recurrent.setValue(!newValue, false);
-                value = newValue;
+                if (Boolean.TRUE.equals(event.getValue())) {
+                    setValue(Boolean.TRUE);
+                }
             }
         });
-        recurrent.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+        recurrent.addValueChangeHandler(new ValueChangeHandler<Boolean>(){
             @Override
             public void onValueChange(ValueChangeEvent<Boolean> event) {
-                Boolean newValue = event.getValue();
-                first.setValue(!newValue, false);
-                value = !newValue;
+                if (Boolean.TRUE.equals(event.getValue())) {
+                    setValue(Boolean.FALSE);
+                }
             }
         });
     }
+
+    private Boolean value = Boolean.TRUE;
 
     @Override
     public Boolean getValue() {
@@ -46,11 +46,12 @@ public class IsFirstTimeWidget extends Composite implements IsWidget, HasValue<B
 
     @Override
     public void setValue(Boolean value, boolean fireEvents) {
+        Boolean oldValue = this.value;
         this.value = value;
         first.setValue(value);
         recurrent.setValue(!value);
         if (fireEvents) {
-            ValueChangeEvent.fire(this, value);
+            ValueChangeEvent.fireIfNotEqual(this, oldValue, value);
         }
     }
 

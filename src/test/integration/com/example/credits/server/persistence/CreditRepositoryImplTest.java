@@ -25,7 +25,7 @@ public class CreditRepositoryImplTest extends IntegrationRepositoryTestBase {
         final Credit beforePersist = new Credit();
         beforePersist.setAmount(1);
         beforePersist.setNumberOfDays(30);
-        beforePersist.setComission(new BigDecimal(100));
+        beforePersist.setCommission(new BigDecimal(100));
         executeInTransaction(new UnitOfWork() {
             public void execute() {
                 creditRepository.persist(beforePersist);
@@ -36,7 +36,7 @@ public class CreditRepositoryImplTest extends IntegrationRepositoryTestBase {
 
         assertThat(afterPersist.getAmount(), is(beforePersist.getAmount()));
         assertThat(afterPersist.getNumberOfDays(), is(beforePersist.getNumberOfDays()));
-        assertThat(afterPersist.getComission(), is(beforePersist.getComission()));
+        assertThat(afterPersist.getCommission(), is(beforePersist.getCommission()));
         assertThat(afterPersist.getCreated(), is(sameDay(new Date())));
     }
 
