@@ -1,6 +1,8 @@
 package com.example.credits.client;
 
 import com.example.credits.client.common.AppController;
+import com.example.credits.shared.services.CalculatorService;
+import com.example.credits.shared.services.CalculatorServiceAsync;
 import com.example.credits.shared.services.CreditService;
 import com.example.credits.shared.services.CreditServiceAsync;
 import com.google.gwt.core.client.EntryPoint;

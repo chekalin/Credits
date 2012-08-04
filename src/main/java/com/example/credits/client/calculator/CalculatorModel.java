@@ -1,18 +1,19 @@
 package com.example.credits.client.calculator;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class CalculatorModel {
+public class CalculatorModel implements Serializable {
 
     private Integer numberOfDays;
     private Integer amount;
     private BigDecimal comission;
-    private BigDecimal extension7;
-    private BigDecimal extension14;
-    private BigDecimal extension30;
+    private BigDecimal prolongation7;
+    private BigDecimal prolongation14;
+    private BigDecimal prolongation30;
     private Date deadline;
-    private Boolean isRecurrent;
+    private Boolean first;
 
     public Integer getNumberOfDays() {
         return numberOfDays;
@@ -38,28 +39,28 @@ public class CalculatorModel {
         this.comission = comission;
     }
 
-    public BigDecimal getExtension7() {
-        return extension7;
+    public BigDecimal getProlongation7() {
+        return prolongation7;
     }
 
-    public void setExtension7(BigDecimal extension7) {
-        this.extension7 = extension7;
+    public void setProlongation7(BigDecimal prolongation7) {
+        this.prolongation7 = prolongation7;
     }
 
-    public BigDecimal getExtension14() {
-        return extension14;
+    public BigDecimal getProlongation14() {
+        return prolongation14;
     }
 
-    public void setExtension14(BigDecimal extension14) {
-        this.extension14 = extension14;
+    public void setProlongation14(BigDecimal prolongation14) {
+        this.prolongation14 = prolongation14;
     }
 
-    public BigDecimal getExtension30() {
-        return extension30;
+    public BigDecimal getProlongation30() {
+        return prolongation30;
     }
 
-    public void setExtension30(BigDecimal extension30) {
-        this.extension30 = extension30;
+    public void setProlongation30(BigDecimal prolongation30) {
+        this.prolongation30 = prolongation30;
     }
 
     public Date getDeadline() {
@@ -70,11 +71,15 @@ public class CalculatorModel {
         this.deadline = deadline;
     }
 
-    public Boolean getRecurrent() {
-        return isRecurrent;
+    public Boolean getFirst() {
+        return first;
     }
 
-    public void setRecurrent(Boolean recurrent) {
-        isRecurrent = recurrent;
+    public void setFirst(Boolean first) {
+        this.first = first;
+    }
+
+    public BigDecimal calculateTotal() {
+        return comission.add(new BigDecimal(amount));
     }
 }

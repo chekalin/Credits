@@ -60,12 +60,13 @@ public class SliderWidget extends Composite implements HasChangeHandlers, Slider
         setValue(value, true);
     }
 
-	public void setValue(Integer value, boolean fireEvents) {
-        this.value = value;
+	public void setValue(Integer newValue, boolean fireEvents) {
+        Integer oldValue = this.value;
+        this.value = newValue;
         if (fireEvents) {
-            ValueChangeEvent.fire(this, value);
+            ValueChangeEvent.fireIfNotEqual(this, oldValue, newValue);
         }
-	}
+    }
 
     public Slider getSlider() {
         return slider;
