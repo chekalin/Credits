@@ -13,10 +13,9 @@ import com.example.credits.shared.services.CreditServiceAsync;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.shared.HandlerManager;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HasWidgets;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.user.client.ui.*;
 
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class CreditsPresenter implements Presenter, ClickHandler {
 
     public interface Display {
         Widget asWidget();
-        TextArea getTextArea();
+        FlexTable getFlexTable();
         Button getBackButton();
     }
 
@@ -49,11 +48,18 @@ public class CreditsPresenter implements Presenter, ClickHandler {
 
         creditService.findAllCredits(new AsyncCallbackWithFailureHandling<List<Credit>>() {
             public void onSuccess(List<Credit> result) {
-                StringBuilder stringBuilder = new StringBuilder();
+                int row = 1;
+                NumberFormat currencyFormat = NumberFormat.getCurrencyFormat("LVL");
+                DateTimeFormat dateFormat = DateTimeFormat.getFormat("dd.MM.yyyy");
+                FlexTable flexTable = view.getFlexTable();
                 for (Credit credit : result) {
-                    stringBuilder.append(credit.toString()).append("\n");
+                    flexTable.setHTML(row, 0, String.valueOf(credit.getCreditId()));
+                    flexTable.setHTML(row, 1, currencyFormat.format(credit.getAmount()));
+                    flexTable.setHTML(row, 2, String.valueOf(credit.getNumberOfDays()));
+                    flexTable.setHTML(row, 3, currencyFormat.format(credit.getCommission()));
+                    flexTable.setHTML(row, 4, dateFormat.format(credit.getCreated()));
+                    row++;
                 }
-                view.getTextArea().setValue(stringBuilder.toString());
             }
         });
 
