@@ -6,8 +6,8 @@ import com.google.gwt.user.client.ui.*;
 public class CalculatorView extends Composite implements CalculatorPresenter.Display {
 	
     private Button submitButton;
-    private SliderWidget daysSlider = new SliderWidget("days", 1, 30, 1);
-    private SliderWidget amountSlider = new SliderWidget("amount", 1, 350, 1);
+    private SliderWidget daysSlider = new SliderWidget("days", 1, 30, 1, "Uz cik dienām?", "Līdz 30 dienām");
+    private SliderWidget amountSlider = new SliderWidget("amount", 1, 350, 1, "Kādu summu vēlies?", "Līdz Ls 350");
     private Label amountLabel = new Label();
     private Label comissionLabel = new Label();
     private Label totalLabel = new Label();
@@ -20,18 +20,22 @@ public class CalculatorView extends Composite implements CalculatorPresenter.Dis
     public CalculatorView() {
 		VerticalPanel panel = new VerticalPanel();
 	    initWidget(panel);
+        panel.add(isFirstTime);
         HorizontalPanel creditInfo = new HorizontalPanel();
         creditInfo.add(sliders());
         creditInfo.add(creditInfoTable());
-        panel.add(isFirstTime);
+        creditInfo.setStyleName("credit-info-panel");
         panel.add(creditInfo);
+
     }
 
     private VerticalPanel sliders() {
         VerticalPanel sliders = new VerticalPanel();
-        sliders.add(daysSlider);
+        sliders.setHorizontalAlignment(HorizontalPanel.ALIGN_CENTER);
         sliders.add(amountSlider);
-        submitButton = new Button("Submit");
+        sliders.add(daysSlider);
+        submitButton = new Button("Saņemt ātro kredītu");
+        submitButton.setStyleName("credit-submit-button");
         sliders.add(submitButton);
         return sliders;
     }
@@ -40,13 +44,16 @@ public class CalculatorView extends Composite implements CalculatorPresenter.Dis
         FlexTable creditInfo = new FlexTable();
         creditInfo.getFlexCellFormatter().setColSpan(0, 0, 2);
         creditInfo.setWidget(0, 0, deadlineLabel);
+        deadlineLabel.setStyleName("credit-info-header");
         creditInfo.setWidget(1, 0, new Label("Kredīts:"));
         creditInfo.setWidget(1, 1, amountLabel);
         creditInfo.setWidget(2, 0, new Label("Komisija:"));
         creditInfo.setWidget(2, 1, comissionLabel);
         creditInfo.setWidget(3, 0, new Label("Kopā:"));
         creditInfo.setWidget(3, 1, totalLabel);
-        creditInfo.setWidget(4, 0, new Label("Varēsi arī pagarināt termiņu par:"));
+        Label prolongationLabel = new Label("Varēsi arī pagarināt termiņu par:");
+        prolongationLabel.setStyleName("credit-info-header");
+        creditInfo.setWidget(4, 0, prolongationLabel);
         creditInfo.getFlexCellFormatter().setColSpan(4, 0, 2);
         creditInfo.setWidget(5, 0, new Label("7 dienām"));
         creditInfo.setWidget(5, 1, prolongation7Label);
@@ -54,6 +61,13 @@ public class CalculatorView extends Composite implements CalculatorPresenter.Dis
         creditInfo.setWidget(6, 1, prolongation14Label);
         creditInfo.setWidget(7, 0, new Label("30 dienām"));
         creditInfo.setWidget(7, 1, prolongation30Label);
+        amountLabel.setStyleName("credit-info-number");
+        comissionLabel.setStyleName("credit-info-number");
+        totalLabel.setStyleName("credit-info-number");
+        prolongation7Label.setStyleName("credit-info-number");
+        prolongation14Label.setStyleName("credit-info-number");
+        prolongation30Label.setStyleName("credit-info-number");
+        creditInfo.setStyleName("credit-info-table");
         return creditInfo;
     }
 

@@ -116,7 +116,7 @@ public class CalculatorPresenter implements Presenter, ClickHandler, ValueChange
         DateTimeFormat dateFormat = DateTimeFormat.getFormat("dd.MM.yyyy");
         String deadlineLabel = "Līdz " + dateFormat.format(model.getDeadline()) + " Tev jāatmaksā:";
         view.getDeadlineLabel().setText(deadlineLabel);
-        NumberFormat currencyFormat = NumberFormat.getCurrencyFormat("LVL");
+        NumberFormat currencyFormat = NumberFormat.getFormat("Ls #,##0.00");
         view.getAmountLabel().setText(currencyFormat.format(model.getAmount()));
         view.getComissionLabel().setText(currencyFormat.format(model.getComission()));
         view.getTotalLabel().setText(currencyFormat.format(model.calculateTotal()));

@@ -30,6 +30,8 @@ public class IsFirstTimeWidget extends Composite implements IsWidget, HasValue<B
                 }
             }
         });
+        first.setStyleName("tab tab-active");
+        recurrent.setStyleName("tab");
     }
 
     private Boolean value = Boolean.TRUE;
@@ -46,6 +48,13 @@ public class IsFirstTimeWidget extends Composite implements IsWidget, HasValue<B
 
     @Override
     public void setValue(Boolean value, boolean fireEvents) {
+        if (value) {
+            first.addStyleName("tab-active");
+            recurrent.removeStyleName("tab-active");
+        } else {
+            first.removeStyleName("tab-active");
+            recurrent.addStyleName("tab-active");
+        }
         Boolean oldValue = this.value;
         this.value = value;
         first.setValue(value);
