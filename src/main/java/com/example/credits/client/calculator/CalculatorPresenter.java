@@ -1,6 +1,7 @@
 package com.example.credits.client.calculator;
 
 import com.example.credits.client.common.AsyncCallbackWithFailureHandling;
+import com.example.credits.client.common.Formats;
 import com.example.credits.client.common.Presenter;
 import com.example.credits.client.credits.ShowCreditsEvent;
 import com.example.credits.shared.services.CalculatorServiceAsync;
@@ -113,10 +114,10 @@ public class CalculatorPresenter implements Presenter, ClickHandler, ValueChange
         view.getFirst().setValue(model.getFirst());
         view.getDays().setValue(model.getNumberOfDays());
         view.getAmount().setValue(model.getAmount());
-        DateTimeFormat dateFormat = DateTimeFormat.getFormat("dd.MM.yyyy");
+        DateTimeFormat dateFormat = DateTimeFormat.getFormat(Formats.DATE_FORMAT);
         String deadlineLabel = "Līdz " + dateFormat.format(model.getDeadline()) + " Tev jāatmaksā:";
         view.getDeadlineLabel().setText(deadlineLabel);
-        NumberFormat currencyFormat = NumberFormat.getFormat("Ls #,##0.00");
+        NumberFormat currencyFormat = NumberFormat.getFormat(Formats.CURRENCY_FORMAT);
         view.getAmountLabel().setText(currencyFormat.format(model.getAmount()));
         view.getComissionLabel().setText(currencyFormat.format(model.getComission()));
         view.getTotalLabel().setText(currencyFormat.format(model.calculateTotal()));

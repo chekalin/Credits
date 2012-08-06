@@ -7,6 +7,7 @@ package com.example.credits.client.credits;
 
 import com.example.credits.client.calculator.ShowCalculatorEvent;
 import com.example.credits.client.common.AsyncCallbackWithFailureHandling;
+import com.example.credits.client.common.Formats;
 import com.example.credits.client.common.Presenter;
 import com.example.credits.shared.domain.Credit;
 import com.example.credits.shared.services.CreditServiceAsync;
@@ -49,8 +50,8 @@ public class CreditsPresenter implements Presenter, ClickHandler {
         creditService.findAllCredits(new AsyncCallbackWithFailureHandling<List<Credit>>() {
             public void onSuccess(List<Credit> result) {
                 int row = 1;
-                NumberFormat currencyFormat = NumberFormat.getCurrencyFormat("LVL");
-                DateTimeFormat dateFormat = DateTimeFormat.getFormat("dd.MM.yyyy");
+                NumberFormat currencyFormat = NumberFormat.getFormat(Formats.CURRENCY_FORMAT);
+                DateTimeFormat dateFormat = DateTimeFormat.getFormat(Formats.DATE_TIME_FORMAT);
                 FlexTable flexTable = view.getFlexTable();
                 for (Credit credit : result) {
                     flexTable.setHTML(row, 0, String.valueOf(credit.getCreditId()));

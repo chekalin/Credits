@@ -1,5 +1,8 @@
 body {
-    font: 18px "helvetica neue", helvetica, arial, sans-serif;;
+    font: 18px "helvetica neue", helvetica, arial, sans-serif;
+    width: 960px;
+    margin: 40px auto;
+    color: #444;
 }
 
 .tab {
@@ -48,7 +51,7 @@ body {
 
 .slider-bar {
     margin: 5px 10px;
-    width: 350px;
+    width: 300px;
 }
 
 .slider-button {
@@ -102,7 +105,7 @@ body {
 }
 
 .credit-submit-button {
-    margin-top: 30px;
+    margin-top: 45px;
     background-color: #8c9cbf;
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #aaa), color-stop(50%, #888), color-stop(50%, #666), color-stop(100%, #444));
     background-image: -webkit-linear-gradient(top, #aaa 0%, #888 50%, #666 50%, #444 100%);
@@ -149,8 +152,97 @@ body {
 }
 
 .credit-info-table {
+    width: 230px;
     border-left: 1px solid #ddd;
     padding-left: 10px;
     margin-left: 10px;
 }
+
+.credits-panel {
+    width: 100%;
+}
+
+.credits-table {
+    width: 100%;
+    border-spacing: 0;
+    border: solid #ccc 1px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 1px #ccc;
+    -moz-box-shadow: 0 1px 1px #ccc;
+    box-shadow: 0 1px 1px #ccc;
+}
+
+.credits-table td {
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.credits-table td:first-child {
+    border-left: none;
+}
+
+.credits-table-header td {
+    border-top: none;
+    background-color: #F9C969;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FCE992), to(#F9C969));
+    background-image: -webkit-linear-gradient(top, #FCE992, #F9C969);
+    background-image:    -moz-linear-gradient(top, #FCE992, #F9C969);
+    background-image:     -ms-linear-gradient(top, #FCE992, #F9C969);
+    background-image:      -o-linear-gradient(top, #FCE992, #F9C969);
+    background-image:         linear-gradient(top, #FCE992, #F9C969);
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+.credits-table tr:hover {
+    background: #fbf1c4;
+}
+
+.credits-back-button {
+    margin-top: 10px;
+    background-color: #F9C969;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FCE992), to(#F9C969));
+    background-image: -webkit-linear-gradient(top, #FCE992, #F9C969);
+    background-image:    -moz-linear-gradient(top, #FCE992, #F9C969);
+    background-image:     -ms-linear-gradient(top, #FCE992, #F9C969);
+    background-image:      -o-linear-gradient(top, #FCE992, #F9C969);
+    background-image:         linear-gradient(top, #FCE992, #F9C969);
+    border: 1px solid #ccc;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 1px 0 0 #b1b9cb;
+    -moz-box-shadow: inset 0 1px 0 0 #b1b9cb;
+    box-shadow: inset 0 1px 0 0 #b1b9cb;
+    padding: 7px 0 8px 0;
+    text-decoration: none;
+    text-align: center;
+    width: 150px;
+}
+
+.credits-back-button:hover {
+    background-color: #1d2845;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FCE576), to(#F9C151));
+    background-image: -webkit-linear-gradient(top, #FCE576, #F9C151);
+    background-image:    -moz-linear-gradient(top, #FCE576, #F9C151);
+    background-image:     -ms-linear-gradient(top, #FCE576, #F9C151);
+    background-image:      -o-linear-gradient(top, #FCE576, #F9C151);
+    background-image:         linear-gradient(top, #FCE576, #F9C151);
+    cursor: pointer;
+}
+
+.credits-back-button:active {
+    -webkit-box-shadow: inset 0 0 20px 0 #fff, 0 1px 0 white;
+    -moz-box-shadow: inset 0 0 20px 0 #fff, 0 1px 0 white;
+    box-shadow: inset 0 0 20px 0 #fff, 0 1px 0 white;
+}
+
+
+
+
+
+
 
