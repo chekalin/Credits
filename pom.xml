@@ -12,7 +12,7 @@
 	<properties>
 		<gwtVersion>2.4.0</gwtVersion>
 		<springVersion>3.1.0.RELEASE</springVersion>
-		<hibernateVersion>4.1.4.Final</hibernateVersion>
+		<hibernateVersion>5.4.24.Final</hibernateVersion>
 	</properties>
 
 	<dependencies>
